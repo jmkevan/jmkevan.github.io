@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)https://eurika23.github.io/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>D3 text</title>
+    <script src="./D3 text_files/d3.v4.js.download"></script>
+    <link rel="stylesheet" type="text/css" href="./D3 text_files/style.css">
+
+
+  </head>
+  <body>
+
+    <script>
+      var margin = {top: 30, right: 20, bottom: 30, left: 50},
+          width = 600 - margin.left - margin.right,
+          height = 270 - margin.top - margin.bottom;
+
+      var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+      var parseDate = d3.timeParse("%d-%b-%y"); // Change from: d3.time.format("%d-%b-%y").parse;
+
+      // Making my own data object
+      var myData = [
+        {
+          "date": parseDate('1-May-12'),
+          "close": 58.13
+        },
+        {
+          "date": parseDate('30-Apr-12'),
+          "close": 53.98
+        },
+        {
+          "date": parseDate('27-Apr-12'),
+          "close": 67.00
+        },
+        {
+          "date": parseDate('26-Apr-12'),
+          "close": 89.70
+        },
+        {
+          "date": parseDate('25-Apr-12'),
+          "close": 99.00
+        }
+      ];
+
+      d3.csv("data.csv", function(error, dataset) {
+        dataset.forEach(function(d) {
+          d.date = parseDate(d.date);
+          d.close = +d.close;
+        });
+
+
+      // Scale the range of the data
+      var x = d3.scaleTime().range([0, width]); // Change from: d3.time.scale().range([0, width]);
+      var y = d3.scaleLinear().range([height,0]); // Change from: d3.scale.linear().range([height, 0]);
+
+      // Set max-min date and close
+x.domain(d3.extent(myData, function(d) { return d.date; }));
+y.domain([0, d3.max(myData, function(d) { return d.close; })]);
+
+      var xAxis = d3.axisBottom(x).ticks(5);// Change from: d3.svg.axis().scale(x).orient("bottom").ticks(5);
+      var yAxis = d3.axisLeft(y).ticks(5);// Change from: d3.svg.axis().scale(y).orient("left").ticks(5);
+
+
+      var valueline = d3.line() // Change from: d3.svg.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.close); });
+
+      svg.append("path")		// Add the valueline path.
+        .attr("class", "line")
+        .attr("d", valueline(myData));
+
+      svg.append("g")			// Add the X Axis
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+      svg.append("g")			// Add the Y Axis
+        .attr("class", "y axis")
+        .call(yAxis);
+
+    </script>
+
+
+
+</body></html>
