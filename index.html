@@ -28,7 +28,9 @@
 
 d3.csv("data3.csv", function(error, dataset) {
         dataset.forEach(function(d) {
+          console.log('d.date = ' + d.date);
           d.date = parseDate(d.date);
+          console.log('d.date after = ' + d.date);
           d.close = +d.close;
           d.open = +d.open;
         });
