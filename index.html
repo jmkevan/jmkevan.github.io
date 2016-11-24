@@ -26,9 +26,11 @@
             "translate(" + margin.left + "," + margin.top + ")");
 
       var parseDate = d3.timeParse("%Y"); // Change from: d3.time.format("%d-%b-%y").parse;
+      console.log('right after time parse');
 
 d3.csv("data3.csv", function(error, dataset) {
         dataset.forEach(function(d) {
+          console.log('in the forEach function');
           console.log('d.date = ' + d.date);
           d.date = parseDate(d.date);
           console.log('d.date after = ' + d.date);
