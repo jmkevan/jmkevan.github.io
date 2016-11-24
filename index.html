@@ -10,6 +10,7 @@
 
   </head>
   <body>
+    <h1> Test Header </h1>
 
     <script>
       var margin = {top: 30, right: 20, bottom: 30, left: 50},
@@ -24,7 +25,7 @@
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-      var parseDate = d3.timeParse("%y"); // Change from: d3.time.format("%d-%b-%y").parse;
+      var parseDate = d3.timeParse("%Y"); // Change from: d3.time.format("%d-%b-%y").parse;
 
 d3.csv("data3.csv", function(error, dataset) {
         dataset.forEach(function(d) {
