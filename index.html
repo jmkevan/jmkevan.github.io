@@ -11,9 +11,9 @@
   </head>
   <body>
 <div id="option">
-    <input name="updateButton" 
-                 type="button" 
-                value="Sort by Ethnicity" 
+    <input name="updateButton"
+                 type="button"
+                value="Sort by Ethnicity"
                 onclick="updateData()" />
 </div>
 	<h1>Male vs. Female U.S. Income Comparison</h1>
@@ -28,10 +28,10 @@
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");      
-      
+            "translate(" + margin.left + "," + margin.top + ")");
+
       var parseDate = d3.timeParse("%Y"); // Change from: d3.time.format("%d-%b-%y").parse;
- 
+
 
 
  d3.csv("data4.csv", function(error, myData) {
@@ -49,24 +49,24 @@
       x.domain(d3.extent(myData, function(d) { return d.date; }));
       y.domain([0, d3.max(myData, function(d) { return Math.max(d.close, d.open); })]);
 
- 
+
       var xAxis = d3.axisBottom(x).ticks(10);// Change from: d3.svg.axis().scale(x).orient("bottom").ticks(5);
       var yAxis = d3.axisLeft(y).ticks(5);// Change from: d3.svg.axis().scale(y).orient("left").ticks(5);
 
 // gridlines in x axis function
-function make_x_gridlines() {		
+function make_x_gridlines() {
     return d3.axisBottom(x)
         .ticks(10)
 }
 
 // gridlines in y axis function
-function make_y_gridlines() {		
+function make_y_gridlines() {
     return d3.axisLeft(y)
         .ticks(5)
 }
 
  // add the X gridlines
-  svg.append("g")			
+  svg.append("g")
       .attr("class", "grid")
       .attr("transform", "translate(0," + height + ")")
       .call(make_x_gridlines()
@@ -75,47 +75,47 @@ function make_y_gridlines() {
       )
 
   // add the Y gridlines
-  svg.append("g")			
+  svg.append("g")
       .attr("class", "grid")
       .call(make_y_gridlines()
           .tickSize(-width)
           .tickFormat("")
       )
 
-	  var area2 = d3.area()	
+	  var area2 = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.open); })
 	  .curve(d3.curveBasisOpen);
-	  
+
 	  svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", area2)
 	  .style("fill", "aqua")
 	  .style("stroke-width", "0");
-	  
-	  var area = d3.area()	
+
+	  var area = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.close); })
 	  .curve(d3.curveBasisOpen);
-	  
+
 	  svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", area);
-      
+
       var valueline = d3.line() // Change from: d3.svg.line()
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); })
       .curve(d3.curveBasisOpen);
 
-     var valueline2 = d3.line()	
+     var valueline2 = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.open); })
      .curve(d3.curveBasisOpen);
-     
+
       svg.append("path")		// Add the valueline path.
         .attr("class", "line")
         .attr("d", valueline(myData));
@@ -123,7 +123,7 @@ function make_y_gridlines() {
       svg.append("path")          // Add the valueline2 path.
         .style("stroke", "blue")
         .attr("d", valueline2(myData));
-        
+
       svg.append("g")			// Add the X Axis
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -134,7 +134,7 @@ function make_y_gridlines() {
         .attr("y",  height + margin.bottom)
         .style("text-anchor", "middle")
         .text("Date");
-      
+
       svg.append("g")			// Add the Y Axis
         .attr("class", "y axis")
         .call(yAxis);
@@ -145,7 +145,7 @@ function make_y_gridlines() {
        .attr("text-anchor", "start")
        .style("fill", "blue")
        .text("Males");
-       
+
        svg.append("text")
        .attr("transform", "translate("+(width+3)+","+y(myData[0].close)+")")
        .attr("dy", ".35em")
@@ -177,7 +177,8 @@ function updateData() {
  // Set max-min date and close
       x.domain(d3.extent(myData, function(d) { return d.date; }));
       y.domain([0, d3.max(myData, function(d) { return Math.max(d.close, d.open); })]);
-      
+
+      console.log(x.domain());
     // Select the section we want to apply our changes to
     var svg = d3.select("body").transition();
 
