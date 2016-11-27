@@ -178,7 +178,7 @@ function updateData() {
       x.domain(d3.extent(myData, function(d) { return d.date; }));
       y.domain([0, d3.max(myData, function(d) { return Math.max(d.close, d.open); })]);
 
-      console.log(x.domain());
+      console.log(x.domain);
     // Select the section we want to apply our changes to
     var svg = d3.select("body").transition();
 
