@@ -10,12 +10,7 @@
 
   </head>
   <body>
-<div id="option">
-    <input name="updateButton" 
-                 type="button" 
-                value="Sort by Ethnicity" 
-                onclick="updateData()" />
-</div>
+
 	<h1>Male vs. Female U.S. Income Comparison</h1>
     <script>
        var margin = {top: 30, right: 60, bottom: 30, left: 60},
@@ -34,7 +29,7 @@
  
 
 
- d3.csv("data4.csv", function(error, myData) {
+ d3.csv("data6.csv", function(error, myData) {
         myData.forEach(function(d) {
           d.date = parseDate(d.date);
           d.close = +d.close;
@@ -82,29 +77,7 @@ function make_y_gridlines() {
           .tickFormat("")
       )
 
-	  var area2 = d3.area()	
-	  .x(function(d) { return x(d.date); })
-	  .y0(height)
-	  .y1(function(d) { return y(d.open); })
-	  .curve(d3.curveBasisOpen);
-	  
-	  svg.append("path")
-	  .datum(myData)
-	  .attr("class", "area")
-	  .attr("d", area2)
-	  .style("fill", "aqua")
-	  .style("stroke-width", "0");
-	  
-	  var area = d3.area()	
-	  .x(function(d) { return x(d.date); })
-	  .y0(height)
-	  .y1(function(d) { return y(d.close); })
-	  .curve(d3.curveBasisOpen);
-	  
-	  svg.append("path")
-	  .datum(myData)
-	  .attr("class", "area")
-	  .attr("d", area);
+
       
       var valueline = d3.line() // Change from: d3.svg.line()
       .x(function(d) { return x(d.date); })
@@ -161,48 +134,6 @@ function make_y_gridlines() {
         .style("text-anchor", "middle")
         .text("U.S. Dollars");
 
-function updateData() {
-
-    // Get the data again
-    d3.csv("data6.csv", function(error, myData) {
-        myData.forEach(function(d) {
-          d.date = parseDate(d.date);
-          d.close = +d.close;
-          d.open = +d.open;
-	    });
-
-      var x = d3.scaleTime().range([0, width]); // Change from: d3.time.scale().range([0, width]);
-      var y = d3.scaleLinear().range([height,0]); // Change from: d3.scale.linear().range([height, 0]);
-
- // Set max-min date and close
-      x.domain(d3.extent(myData, function(d) { return d.date; }));
-      y.domain([0, d3.max(myData, function(d) { return Math.max(d.close, d.open); })]);
-      
-    // Select the section we want to apply our changes to
-    var svg = d3.select("body").transition();
-
-    // Make the changes
-        svg.select(".area")   // change the area
-            .duration(750)
-            .attr("d", area2(Mydata));
-        svg.select(".area")   // change the area
-            .duration(750)
-            .attr("d", area(Mydata));
-        svg.select(".line")   // change the line
-            .duration(750)
-            .attr("d", valueline(Mydata));
-        svg.select("line") // change the x axis
-            .duration(750)
-         .attr("d", valueline2(Mydata));
-        svg.select(".x.axis") // change the x axis
-            .duration(750)
-            .call(xAxis);
-        svg.select(".y.axis") // change the y axis
-            .duration(750)
-            .call(yAxis);
-
-    });
-}
 });
     </script>
 

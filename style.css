@@ -1,4 +1,12 @@
-body { font: 14px Arial;}
+body { 
+  font: 14px Arial;
+  width: 600px;
+}
+
+h1 {
+  font: 20px American Typewriter;
+  text-align: center;
+}
 
 path {
   stroke: magenta;
@@ -10,7 +18,7 @@ path {
 
 .axis line {
   fill: none;
-  stroke: violet;
+  stroke: gray;
   stroke-width: 2;
   shape-rendering: crispEdges;
 }
@@ -20,3 +28,14 @@ path {
     stroke-width: 0;
 
 }
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
