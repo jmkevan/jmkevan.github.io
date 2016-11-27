@@ -16,7 +16,7 @@
                 value="Sort by Ethnicity"
                 onclick="updateData()" />
 </div>
-	<h1>Male vs. Female U.S. Income Comparison Test</h1>
+	<h1>Male vs. Female U.S. Income Comparison</h1>
     <script>
        var margin = {top: 30, right: 60, bottom: 30, left: 60},
           width = 600 - margin.left - margin.right,
@@ -107,9 +107,7 @@ function make_y_gridlines() {
 	  .attr("d", area);
 
       var valueline = d3.line() // Change from: d3.svg.line()
-      .x(function(d) {
-        console.log('point = [' + d.date +',' + d.close + ']');
-        return x(d.date); })
+      .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); })
       .curve(d3.curveBasis);
 
