@@ -13,7 +13,7 @@
 
 <body>
     <div id="option">
-        <input name="updateButton" type="button" value="Sort by Ethnicity" onclick="testButton()" />
+        <input name="updateButton" type="button" value="Sort by Ethnicity" onclick="updateData()" />
     </div>
     <h1>Male vs. Female U.S. Income Comparison</h1>
     <script>
@@ -185,57 +185,57 @@
                 .style("text-anchor", "middle")
                 .text("U.S. Dollars");
 
-            function updateData() {
 
-                // Get the data again
-                d3.csv("data6.csv", function(error, myData) {
-                    myData.forEach(function(d) {
-                        d.date = parseDate(d.date);
-                        d.close = +d.close;
-                        d.open = +d.open;
-                    });
-
-                    var x = d3.scaleTime().range([0, width]); // Change from: d3.time.scale().range([0, width]);
-                    var y = d3.scaleLinear().range([height, 0]); // Change from: d3.scale.linear().range([height, 0]);
-
-                    // Set max-min date and close
-                    x.domain(d3.extent(myData, function(d) {
-                        return d.date;
-                    }));
-                    y.domain([0, d3.max(myData, function(d) {
-                        return Math.max(d.close, d.open);
-                    })]);
-
-                    // Select the section we want to apply our changes to
-                    var svg = d3.select("body").transition();
-
-                    // Make the changes
-                    svg.select(".area") // change the area
-                        .duration(750)
-                        .attr("d", area2(Mydata));
-                    svg.select(".area") // change the area
-                        .duration(750)
-                        .attr("d", area(Mydata));
-                    svg.select(".line") // change the line
-                        .duration(750)
-                        .attr("d", valueline(Mydata));
-                    svg.select("line") // change the x axis
-                        .duration(750)
-                        .attr("d", valueline2(Mydata));
-                    svg.select(".x.axis") // change the x axis
-                        .duration(750)
-                        .call(xAxis);
-                    svg.select(".y.axis") // change the y axis
-                        .duration(750)
-                        .call(yAxis);
-
-                });
-            }
         });
 
-        function testButton () {
-          console.log('it works!');
+        function updateData() {
+
+            console.log('updateData() has been called');
+            // Get the data again
+            d3.csv("data6.csv", function(error, myData) {
+                myData.forEach(function(d) {
+                    d.date = parseDate(d.date);
+                    d.close = +d.close;
+                    d.open = +d.open;
+                });
+
+                var x = d3.scaleTime().range([0, width]); // Change from: d3.time.scale().range([0, width]);
+                var y = d3.scaleLinear().range([height, 0]); // Change from: d3.scale.linear().range([height, 0]);
+
+                // Set max-min date and close
+                x.domain(d3.extent(myData, function(d) {
+                    return d.date;
+                }));
+                y.domain([0, d3.max(myData, function(d) {
+                    return Math.max(d.close, d.open);
+                })]);
+
+                // Select the section we want to apply our changes to
+                var svg = d3.select("body").transition();
+
+                // Make the changes
+                svg.select(".area") // change the area
+                    .duration(750)
+                    .attr("d", area2(Mydata));
+                svg.select(".area") // change the area
+                    .duration(750)
+                    .attr("d", area(Mydata));
+                svg.select(".line") // change the line
+                    .duration(750)
+                    .attr("d", valueline(Mydata));
+                svg.select("line") // change the x axis
+                    .duration(750)
+                    .attr("d", valueline2(Mydata));
+                svg.select(".x.axis") // change the x axis
+                    .duration(750)
+                    .call(xAxis);
+                svg.select(".y.axis") // change the y axis
+                    .duration(750)
+                    .call(yAxis);
+
+            });
         }
+
     </script>
 
 </body>
