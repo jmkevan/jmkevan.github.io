@@ -232,13 +232,15 @@
                 clearGraph();
 
                 // Select the section we want to apply our changes to
-                svg.transition();
+                //svg.transition();
 
                 // Make the changes
                 svg.select(".x.axis") // change the x axis
+                    .transition()
                     .duration(750)
                     .call(xAxis);
                 svg.select(".y.axis") // change the y axis
+                    .transition()
                     .duration(750)
                     .call(yAxis);
 
