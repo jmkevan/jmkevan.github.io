@@ -1,0 +1,41 @@
+body { 
+  font: 14px Arial;
+  width: 600px;
+}
+
+h1 {
+  font: 20px American Typewriter;
+  text-align: center;
+}
+
+path {
+  stroke: magenta;
+  stroke-width: 1;
+  fill: none;
+}
+
+.axis path,
+
+.axis line {
+  fill: none;
+  stroke: gray;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+
+.area {
+    fill: yellow;
+    stroke-width: 0;
+
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
