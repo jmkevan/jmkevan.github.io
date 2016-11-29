@@ -77,7 +77,29 @@ function make_y_gridlines() {
           .tickFormat("")
       )
 
-
+	  var area2 = d3.area()	
+	  .x(function(d) { return x(d.date); })
+	  .y0(height)
+	  .y1(function(d) { return y(d.open); })
+	  .curve(d3.curveBasisOpen);
+	  
+	  svg.append("path")
+	  .datum(myData)
+	  .attr("class", "area")
+	  .attr("d", area2)
+	  .style("fill", "aqua")
+	  .style("stroke-width", "0");
+	  
+	  var area = d3.area()	
+	  .x(function(d) { return x(d.date); })
+	  .y0(height)
+	  .y1(function(d) { return y(d.close); })
+	  .curve(d3.curveBasisOpen);
+	  
+	  svg.append("path")
+	  .datum(myData)
+	  .attr("class", "area")
+	  .attr("d", area);
       
       var valueline = d3.line() // Change from: d3.svg.line()
       .x(function(d) { return x(d.date); })
