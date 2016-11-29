@@ -232,7 +232,7 @@
                 clearGraph();
 
                 // Select the section we want to apply our changes to
-                var svg = d3.select("body").transition();
+                svg.transition();
 
                 // Make the changes
                 svg.select(".x.axis") // change the x axis
@@ -258,8 +258,6 @@
                     console.log('g is HERE!');
                 }
 
-                console.log(svg);
-                
                 // add the X gridlines
                 svg.append("g")
                     .attr("class", "grid")
