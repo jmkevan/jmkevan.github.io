@@ -580,6 +580,7 @@
                 var svg = d3.select("body").transition();
 
                 // Make the changes
+                svg.append('g').append('g').attr('id','test');
 
                 svg.select(".area") // change the area
                     .duration(750)
@@ -587,14 +588,8 @@
                     .attr("d", asianW(myData))
                     .attr("d", blackM(myData))
                     .attr("d", hispanicM(myData))
-                    .attr("d", whiteW(myData));
-
-                svg.select(".area") // change the area
-                    .duration(750)
-                    .attr("d", blackW(myData));
-
-                svg.select(".area") // change the area
-                    .duration(750)
+                    .attr("d", whiteW(myData))
+                    .attr("d", blackW(myData))
                     .attr("d", hispanicW(myData));
 
                 svg.select(".line")
@@ -603,14 +598,8 @@
                     .attr("d", valuelineWM(myData))
                     .attr("d", valuelineBM(myData))
                     .attr("d", valuelineHM(myData))
-                    .attr("d", valuelineWM(myData));
-
-                svg.select(".area") // change the area
-                    .duration(750)
-                    .attr("d", valuelineBW(myData));
-
-                svg.select(".area") // change the area
-                    .duration(750)
+                    .attr("d", valuelineWM(myData))
+                    .attr("d", valuelineBW(myData))
                     .attr("d", valuelineHW(myData));
 
                 svg.select(".x.axis") // change the x axis
@@ -619,6 +608,7 @@
                 svg.select(".y.axis") // change the y axis
                     .duration(750)
                     .call(yAxis);
+
 
             });
         };
