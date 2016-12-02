@@ -12,9 +12,9 @@
   <body>
 <div id="option">
 
-    <input name="updateButton" 
-                 type="button" 
-                value="Sort by Ethnicity" 
+    <input name="updateButton"
+                 type="button"
+                value="Sort by Ethnicity"
                 onclick="updateData()" />
 </div>
 	<h1>Male vs. Female U.S. Income Comparison</h1>
@@ -29,10 +29,10 @@
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");      
-      
+            "translate(" + margin.left + "," + margin.top + ")");
+
       var parseDate = d3.timeParse("%Y"); // Change from: d3.time.format("%d-%b-%y").parse;
- 
+
 
 
  d3.csv("data8.csv", function(error, myData) {
@@ -56,24 +56,24 @@
       x.domain(d3.extent(myData, function(d) { return d.date; }));
       y.domain([0, d3.max(myData, function(d) { return Math.max(d.close, d.open, d.AsianM, d.AsianW, d.BlackM, d.BlackW, d.HispanicM, d.HispanicW); })]);
 
- 
+
       var xAxis = d3.axisBottom(x).ticks(10);// Change from: d3.svg.axis().scale(x).orient("bottom").ticks(5);
       var yAxis = d3.axisLeft(y).ticks(5);// Change from: d3.svg.axis().scale(y).orient("left").ticks(5);
 
 // gridlines in x axis function
-function make_x_gridlines() {		
+function make_x_gridlines() {
     return d3.axisBottom(x)
         .ticks(10)
 }
 
 // gridlines in y axis function
-function make_y_gridlines() {		
+function make_y_gridlines() {
     return d3.axisLeft(y)
         .ticks(5)
 }
 
  // add the X gridlines
-  svg.append("g")			
+  svg.append("g")
       .attr("class", "grid")
       .attr("transform", "translate(0," + height + ")")
       .call(make_x_gridlines()
@@ -82,129 +82,129 @@ function make_y_gridlines() {
       )
 
   // add the Y gridlines
-  svg.append("g")			
+  svg.append("g")
       .attr("class", "grid")
       .call(make_y_gridlines()
           .tickSize(-width)
           .tickFormat("")
       )
 
-	var asianManArea = d3.area()	
+	var asianManArea = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.AsianM); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", asianManArea)
 	  .style("fill", "cyan")
 	  .style("stroke-width", "0");
-	  
-	var valuelineAM = d3.line()	
+
+	var valuelineAM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.AsianM); })
      .curve(d3.curveBasis);
-     
+
       svg.append("path")          // Add the valuelineAM path.
         .style("stroke", "navy")
         .attr("d", valuelineAM(myData));
-	  
- 	  var whiteManArea = d3.area()	
+
+ 	  var whiteManArea = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.open); })
 	  .curve(d3.curveBasis);
-	  
+
 	  svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", whiteManArea)
 	  .style("fill", "Aquamarine")
 	  .style("stroke-width", "0");
-	  
-	var valuelineWM = d3.line()	
+
+	var valuelineWM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.open); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineWM path.
         .style("stroke", "blue")
         .attr("d", valuelineWM(myData));
-        	  
-	  var asianW = d3.area()	
+
+	  var asianW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.AsianW); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", asianW)
 	  .style("fill", "pink")
 	  .style("stroke-width", "0");
-	  
-	  var valuelineAW = d3.line()	
+
+	  var valuelineAW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.AsianW); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineAW path.
         .style("stroke", "red")
-        .attr("d", valuelineAW(myData));  
-	
- 	   var blackM = d3.area()	
+        .attr("d", valuelineAW(myData));
+
+ 	   var blackM = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.BlackM); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", blackM)
 	  .style("fill", "turquoise")
 	  .style("stroke-width", "0");
-	  
-	var valuelineBM = d3.line()	
+
+	var valuelineBM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.BlackM); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineBM path.
         .style("stroke", "Teal")
         .attr("d", valuelineBM(myData));
-	  
-	   var hispanicM = d3.area()	
+
+	   var hispanicM = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.HispanicM); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", hispanicM)
 	  .style("fill", "CornFlowerBlue")
 	  .style("stroke-width", "0");
-	
-	var valuelineHM = d3.line()	
+
+	var valuelineHM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.HispanicM); })
      .curve(d3.curveBasis);
-     
+
       svg.append("path")          // Add the valuelineHM path.
         .style("stroke", "slate")
         .attr("d", valuelineHM(myData));
-	
-	  var whiteW = d3.area()	
+
+	  var whiteW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.close); })
 	  .curve(d3.curveBasis);
-	  
+
 	  svg.append("path")
 	  .datum(myData)
 	   .attr("class", "area")
@@ -216,17 +216,17 @@ function make_y_gridlines() {
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); })
       .curve(d3.curveBasis);
-           
+
       svg.append("path")		// Add the valuelineWW path.
         .attr("class", "line")
         .attr("d", valuelineWW(myData));
-          
-	    var blackW = d3.area()	
+
+	    var blackW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.BlackW); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
@@ -234,29 +234,29 @@ function make_y_gridlines() {
 	  .style("fill", "DeepPink")
 	  .style("stroke-width", "0");
 
-    var valuelineBW = d3.line()	
+    var valuelineBW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.BlackW); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineBW path.
         .style("stroke", "RebeccaPurple")
         .attr("d", valuelineBW(myData));
 
-	  var hispanicW = d3.area()	
+	  var hispanicW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.HispanicW); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", hispanicW)
 	  .style("fill", "IndianRed")
 	  .style("stroke-width", "0");
-        
-         var valuelineHW = d3.line()	
+
+         var valuelineHW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.HispanicW); })
      .curve(d3.curveBasis);
@@ -264,7 +264,7 @@ function make_y_gridlines() {
 	 svg.append("path")          // Add the valueline2 path.
         .style("stroke", "HotPink")
         .attr("d", valuelineHW(myData));
-        
+
       svg.append("g")			// Add the X Axis
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -275,7 +275,7 @@ function make_y_gridlines() {
         .attr("y",  height + margin.bottom)
         .style("text-anchor", "middle")
         .text("Date");
-      
+
       svg.append("g")			// Add the Y Axis
         .attr("class", "y axis")
         .call(yAxis);
@@ -287,7 +287,7 @@ function make_y_gridlines() {
        .attr("text-anchor", "start")
        .style("fill", "blue")
        .text("Males");
-       
+
        svg.append("text")
        .attr("class", "axisLabel")
        .attr("transform", "translate("+(width+3)+","+y(myData[0].close)+")")
@@ -319,7 +319,7 @@ function clearGraph() {
 function updateData() {
     console.log('I am in updateData()!!!!');
        // Get the myData again
-    
+
     d3.csv("data5.csv", function(error, myData) {
         myData.forEach(function(d) {
           d.date = parseDate(d.date);
@@ -332,138 +332,138 @@ function updateData() {
           d.HispanicW = +d.HispanicW;
           d.HispanicM = +d.HispanicM;
 	    })
-	    
+
 	  var x = d3.scaleTime().range([0, width]); // Change from: d3.time.scale().range([0, width]);
       var y = d3.scaleLinear().range([height,0]); // Change from: d3.scale.linear().range([height, 0]);
 
  // Set max-min date and close
       x.domain(d3.extent(myData, function(d) { return d.date; }));
       y.domain([0, d3.max(myData, function(d) { return Math.max(d.close, d.open, d.AsianM, d.AsianW, d.BlackM, d.BlackW, d.HispanicM, d.HispanicW); })]);
-      
+
       console.log('x.domain() = ' + x.domain());
       console.log('y.domain() = ' + y.domain());
 
       clearGraph();
-      
+
   var xAxis = d3.axisBottom(x).ticks(10);// Change from: d3.svg.axis().scale(x).orient("bottom").ticks(5);
     var yAxis = d3.axisLeft(y).ticks(5);// Change from: d3.svg.axis().scale(y).orient("left").ticks(5);
 
-	var asianManArea = d3.area()	
+	var asianManArea = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.AsianM); })
 	  .curve(d3.curveBasis);
-	  
+
 /*	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", asianManArea)
 	  .style("fill", "cyan")
 	  .style("stroke-width", "0");
-*/	  
-	var valuelineAM = d3.line()	
+*/
+	var valuelineAM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.AsianM); })
      .curve(d3.curveBasis);
-     
+
 /*      svg.append("path")          // Add the valuelineAM path.
         .style("stroke", "navy")
         .attr("d", valuelineAM(myData));
-*/	  
- 	  var whiteManArea = d3.area()	
+*/
+ 	  var whiteManArea = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.open); })
 	  .curve(d3.curveBasis);
-	  
+
 /*	  svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", whiteManArea)
 	  .style("fill", "Aquamarine")
 	  .style("stroke-width", "0");
-*/	  
-	var valuelineWM = d3.line()	
+*/
+	var valuelineWM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.open); })
      .curve(d3.curveBasis);
-     
+
 /*    svg.append("path")          // Add the valuelineWM path.
         .style("stroke", "blue")
         .attr("d", valuelineWM(myData));
-*/	  
-	var asianW = d3.area()	
+*/
+	var asianW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.AsianW); })
 	  .curve(d3.curveBasis);
-/*	  
+/*
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", asianW)
 	  .style("fill", "pink")
 	  .style("stroke-width", "0");
-*/	  
-	  var valuelineAW = d3.line()	
+*/
+	  var valuelineAW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.AsianW); })
      .curve(d3.curveBasis);
-/*     
+/*
     svg.append("path")          // Add the valuelineAW path.
         .style("stroke", "red")
-        .attr("d", valuelineAW(myData));  
-*/	
- 	   var blackM = d3.area()	
+        .attr("d", valuelineAW(myData));
+*/
+ 	   var blackM = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.BlackM); })
 	  .curve(d3.curveBasis);
-/*	  
+/*
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", blackM)
 	  .style("fill", "turquoise")
 	  .style("stroke-width", "0");
-*/	  
-	var valuelineBM = d3.line()	
+*/
+	var valuelineBM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.BlackM); })
      .curve(d3.curveBasis);
-/*     
+/*
     svg.append("path")          // Add the valuelineBM path.
         .style("stroke", "Teal")
         .attr("d", valuelineBM(myData));
-*/	  
-	   var hispanicM = d3.area()	
+*/
+	   var hispanicM = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.HispanicM); })
 	  .curve(d3.curveBasis);
-/*  
+/*
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", hispanicM)
 	  .style("fill", "CornFlowerBlue")
 	  .style("stroke-width", "0");
-*/	
-	var valuelineHM = d3.line()	
+*/
+	var valuelineHM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.HispanicM); })
      .curve(d3.curveBasis);
-     
+
  /*     svg.append("path")          // Add the valuelineHM path.
         .style("stroke", "slate")
         .attr("d", valuelineHM(myData));
-*/	
-	  var whiteW = d3.area()	
+*/
+	  var whiteW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.close); })
 	  .curve(d3.curveBasis);
-/*	  
+/*
 	  svg.append("path")
 	  .datum(myData)
 	   .attr("class", "area")
@@ -475,17 +475,17 @@ function updateData() {
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); })
       .curve(d3.curveBasis);
-/*           
+/*
       svg.append("path")		// Add the valuelineWW path.
         .attr("class", "line")
         .attr("d", valuelineWW(myData));
- */         
-	    var blackW = d3.area()	
+ */
+	    var blackW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.BlackW); })
 	  .curve(d3.curveBasis);
-/*	  
+/*
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
@@ -493,42 +493,42 @@ function updateData() {
 	  .style("fill", "DeepPink")
 	  .style("stroke-width", "0");
 */
-    var valuelineBW = d3.line()	
+    var valuelineBW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.BlackW); })
      .curve(d3.curveBasis);
-/*    
+/*
     svg.append("path")          // Add the valuelineBW path.
         .style("stroke", "RebeccaPurple")
         .attr("d", valuelineBW(myData));
 */
-	  var hispanicW = d3.area()	
+	  var hispanicW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.HispanicW); })
 	  .curve(d3.curveBasis);
-/*	  
+/*
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", hispanicW)
 	  .style("fill", "IndianRed")
 	  .style("stroke-width", "0");
-*/        
-         var valuelineHW = d3.line()	
+*/
+         var valuelineHW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.HispanicW); })
      .curve(d3.curveBasis);
-/* 
+/*
 	 svg.append("path")          // Add the valueline2 path.
         .style("stroke", "HotPink")
         .attr("d", valuelineHF(myData));
- 
+
   svg.append("g")			// Add the X Axis
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
-        
+
     svg.append("g")			// Add the Y Axis
         .attr("class", "y axis")
         .call(yAxis);
@@ -540,9 +540,18 @@ function updateData() {
 
         svg.select(".area")   // change the area
             .duration(750)
-            .attr("d", whiteManArea(myData))
-        	.attr("d", asianW(myData))     
-            .attr("d", blackM(myData))
+            .attr("d", whiteManArea(myData));
+
+        svg.select(".area")
+          .duration(750)
+        	.attr("d", asianW(myData));
+
+        svg.select(".area")
+            .duration(750)
+            .attr("d", blackM(myData));
+
+        svg.select(".area")
+            .duration(750)
        		.attr("d", hispanicM(myData))
        		.attr("d", whiteW(myData))
       		.attr("d", blackW(myData))
@@ -567,13 +576,13 @@ function updateData() {
 
 /*
      // gridlines in x axis function
-function make_x_gridlines() {		
+function make_x_gridlines() {
     return d3.axisBottom(x)
         .ticks(10)
 };
 
 // gridlines in y axis function
-function make_y_gridlines() {		
+function make_y_gridlines() {
     return d3.axisLeft(y)
         .ticks(5)
 };
@@ -584,7 +593,7 @@ if ("g") {
 
 
 // add the X gridlines
-  svg.append("g")			
+  svg.append("g")
       .attr("class", "grid")
       .attr("transform", "translate(0," + height + ")")
       .call(make_x_gridlines()
@@ -593,130 +602,130 @@ if ("g") {
       );
 
   // add the Y gridlines
-  svg.append("g")			
+  svg.append("g")
       .attr("class", "grid")
       .call(make_y_gridlines()
           .tickSize(-width)
           .tickFormat("")
-      );      
- 
- 	  
-      var asianManArea = d3.area()	
+      );
+
+
+      var asianManArea = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.AsianM); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", asianManArea)
 	  .style("fill", "cyan")
 	  .style("stroke-width", "0");
-	  
-	var valuelineAM = d3.line()	
+
+	var valuelineAM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.AsianM); })
      .curve(d3.curveBasis);
-     
+
       svg.append("path")          // Add the valuelineAM path.
         .style("stroke", "navy")
         .attr("d", valuelineAM(myData));
-	  
- 	  var whiteManArea = d3.area()	
+
+ 	  var whiteManArea = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.open); })
 	  .curve(d3.curveBasis);
-	  
+
 	  svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", whiteManArea)
 	  .style("fill", "Aquamarine")
 	  .style("stroke-width", "0");
-	  
-	var valuelineWM = d3.line()	
+
+	var valuelineWM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.open); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineWM path.
         .style("stroke", "blue")
         .attr("d", valuelineWM(myData));
-        	  
-	  var asianW = d3.area()	
+
+	  var asianW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.AsianW); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", asianW)
 	  .style("fill", "pink")
 	  .style("stroke-width", "0");
-	  
-	  var valuelineAW = d3.line()	
+
+	  var valuelineAW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.AsianW); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineAW path.
         .style("stroke", "red")
-        .attr("d", valuelineAW(myData));  
-	
- 	   var blackM = d3.area()	
+        .attr("d", valuelineAW(myData));
+
+ 	   var blackM = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.BlackM); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", blackM)
 	  .style("fill", "turquoise")
 	  .style("stroke-width", "0");
-	  
-	var valuelineBM = d3.line()	
+
+	var valuelineBM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.BlackM); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineBM path.
         .style("stroke", "Teal")
         .attr("d", valuelineBM(myData));
-	  
-	   var hispanicM = d3.area()	
+
+	   var hispanicM = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.HispanicM); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", hispanicM)
 	  .style("fill", "CornFlowerBlue")
 	  .style("stroke-width", "0");
-	
-	var valuelineHM = d3.line()	
+
+	var valuelineHM = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.HispanicM); })
      .curve(d3.curveBasis);
-     
+
       svg.append("path")          // Add the valuelineHM path.
         .style("stroke", "slate")
         .attr("d", valuelineHM(myData));
-	
-	  var whiteW = d3.area()	
+
+	  var whiteW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.close); })
 	  .curve(d3.curveBasis);
-	  
+
 	  svg.append("path")
 	  .datum(myData)
 	   .attr("class", "area")
@@ -728,17 +737,17 @@ if ("g") {
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); })
       .curve(d3.curveBasis);
-           
+
       svg.append("path")		// Add the valuelineWW path.
         .attr("class", "line")
         .attr("d", valuelineWW(myData));
-          
-	    var blackW = d3.area()	
+
+	    var blackW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.BlackW); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
@@ -746,29 +755,29 @@ if ("g") {
 	  .style("fill", "DeepPink")
 	  .style("stroke-width", "0");
 
-    var valuelineBW = d3.line()	
+    var valuelineBW = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.BlackW); })
      .curve(d3.curveBasis);
-     
+
     svg.append("path")          // Add the valuelineBW path.
         .style("stroke", "RebeccaPurple")
         .attr("d", valuelineBW(myData));
 
-	  var hispanicW = d3.area()	
+	  var hispanicW = d3.area()
 	  .x(function(d) { return x(d.date); })
 	  .y0(height)
 	  .y1(function(d) { return y(d.HispanicW); })
 	  .curve(d3.curveBasis);
-	  
+
 	   svg.append("path")
 	  .datum(myData)
 	  .attr("class", "area")
 	  .attr("d", hispanicW)
 	  .style("fill", "IndianRed")
 	  .style("stroke-width", "0");
-        
-         var valuelineHF = d3.line()	
+
+         var valuelineHF = d3.line()
      .x(function(d) { return x(d.date); })
      .y(function(d) { return y(d.HispanicW); })
      .curve(d3.curveBasis);
@@ -777,7 +786,7 @@ if ("g") {
         .style("stroke", "HotPink")
         .attr("d", valuelineHF(myData));
 
-      
+
 
       svg.append("text")
        .attr("transform", "translate("+(width+3)+","+y(myData[0].open)+")")
@@ -785,7 +794,7 @@ if ("g") {
        .attr("text-anchor", "start")
        .style("fill", "blue")
        .text("White Males");
-       
+
        svg.append("text")
        .attr("transform", "translate("+(width+3)+","+y(myData[0].close)+")")
        .attr("dy", ".35em")
