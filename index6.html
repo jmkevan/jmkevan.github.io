@@ -583,18 +583,9 @@
 
                 svg.select(".area") // change the area
                     .duration(750)
-                    .attr("d", whiteManArea(myData));
-
-                svg.select(".area")
-                    .duration(750)
-                    .attr("d", asianW(myData));
-
-                svg.select(".area")
-                    .duration(750)
-                    .attr("d", blackM(myData));
-
-                svg.select(".area")
-                    .duration(750)
+                    .attr("d", whiteManArea(myData))
+                    .attr("d", asianW(myData))
+                    .attr("d", blackM(myData))
                     .attr("d", hispanicM(myData))
                     .attr("d", whiteW(myData))
                     .attr("d", blackW(myData))
