@@ -576,11 +576,13 @@
                     })
                     .curve(d3.curveBasis);
 
+                    // Make the changes
+                    svg.append('g').append('g').attr('id','test');
+
                 // Select the section we want to apply our changes to
                 var svg = d3.select("body").transition();
 
-                // Make the changes
-                svg.append('g').append('g').attr('id','test');
+
 
                 svg.select(".area") // change the area
                     .duration(750)
